@@ -1,4 +1,4 @@
-# docker run -p -p 443:443 -p 9443:9443 -v /docker/tor-bridge/keys:/var/lib/tor/keys -d --restart always --name tor-bridge btw1217/tor-bridge
+# docker run -p 443:443 -p 9443:9443 -v tor-bridge-keys:/var/lib/tor/keys -d --restart always --name tor-bridge benwaddell/tor-bridge
 
 # ubuntu base image
 FROM ubuntu
@@ -25,6 +25,10 @@ COPY --chown=debian-tor:debian-tor torrc /etc/tor/
 
 # change to debian-tor
 USER debian-tor
+
+# set permissions on docker volume
+RUN mkdir -p /var/lib/tor/keys \
+&& chmod 2700 /var/lib/tor/keys
 
 # run startup script
 ENTRYPOINT tor
