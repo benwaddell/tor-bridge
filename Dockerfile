@@ -16,7 +16,7 @@ RUN apt-get update \
 && echo 'deb-src [signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org jammy main' \
 >> /etc/apt/sources.list.d/tor.list
 
-# install tor and obfs4proxy
+# install tor, obfs4proxy, and nyx
 RUN apt-get update \
 && apt-get install tor deb.torproject.org-keyring obfs4proxy nyx -y
 
