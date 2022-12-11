@@ -40,7 +40,7 @@ jobs:
 
       - name: Test
         run: |
-          docker run --rm ${{ env.TEST_TAG }}
+          timeout 1m docker run --rm ${{ env.TEST_TAG }}
           
       - name: Build and push
         uses: docker/build-push-action@v3
