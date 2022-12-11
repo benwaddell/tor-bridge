@@ -8,10 +8,6 @@ on:
   schedule:
     - cron: "0 0 * * SUN"
 
-env:
-  TEST_TAG: user/app:test
-  LATEST_TAG: user/app:latest
-
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -30,17 +26,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and export to Docker
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          load: true
-          tags: ${{ env.TEST_TAG }}
-
-      - name: Test
-        run: |
-          timeout 1m docker run --rm ${{ env.TEST_TAG }}
           
       - name: Build and push
         uses: docker/build-push-action@v3
@@ -48,4 +33,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ env.LATEST_TAG }}
+          tags: user/app:latest
